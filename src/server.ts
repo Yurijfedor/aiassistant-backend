@@ -7,7 +7,7 @@ import { aiRouter } from "./routes/ai";
 
 const app = express();
 
-app.options("*", cors());
+app.options("/(.*)", cors());
 const allowedOrigins = [
   "http://localhost:5173",
   "https://aiassistant-test-frontend.vercel.app",
