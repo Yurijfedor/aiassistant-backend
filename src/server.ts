@@ -16,7 +16,8 @@ app.use(
   }),
 );
 
-app.use(express.json());
+// app.use(express.json());
+app.use(express.text());
 app.use("/ai", aiRouter);
 
 const port = process.env.PORT || 3001;
