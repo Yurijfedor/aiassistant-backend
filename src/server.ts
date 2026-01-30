@@ -7,15 +7,25 @@ import { aiRouter } from "./routes/ai";
 
 const app = express();
 
+app.options("*", cors());
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://aiassistant-test-frontend.vercel.app",
+];
 app.use(
   cors({
-    origin: [
-      "http://localhost:5173",
-      "https://aiassistant-test-frontend.vercel.app/",
-    ],
+    origin: function (origin, callback) {
+      // дозволяємо server-to-server та curl
+      if (!origin) return callback(null, true);
+
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+
+      callback(new Error("Not allowed by CORS"));
+    },
     methods: ["GET", "POST", "OPTIONS"],
     allowedHeaders: ["Content-Type"],
-    credentials: true,
   }),
 );
 app.use(express.json());
