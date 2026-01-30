@@ -7,13 +7,27 @@ import { aiRouter } from "./routes/ai";
 
 const app = express();
 
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://aiassistant-test-frontend.vercel.app",
+  "https://aiassistant-test-frontend-j1keqwvey-yuriy-shaklaks-projects.vercel.app",
+  "https://aiassistant-test-frontend-git-main-yuriy-shaklaks-projects.vercel.app", // твій live Vercel frontend
+];
+
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error(`CORS blocked for origin: ${origin}`));
+      }
+    },
+    methods: ["POST", "OPTIONS"],
+    allowedHeaders: ["Content-Type"],
   }),
 );
 
-// 🔥 ПОВЕРТАЄМО json
 app.use(express.json());
 
 app.use("/ai", aiRouter);
