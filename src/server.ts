@@ -9,7 +9,10 @@ const app = express();
 
 app.use(
   cors({
-    origin: ["http://localhost:5173", "https://<твоє-деплой-фронт-домен>"],
+    origin: [
+      "http://localhost:5173",
+      "https://aiassistant-test-frontend.vercel.app/",
+    ],
     methods: ["GET", "POST", "OPTIONS"],
     allowedHeaders: ["Content-Type"],
     credentials: true,
