@@ -1,7 +1,21 @@
 import { Router } from "express";
+import cors from "cors";
 import { openai } from "../openai/client";
 
 export const aiRouter = Router();
+
+// 🔥 ЯВНО обробляємо preflight для цього endpoint
+aiRouter.options(
+  "/stream",
+  cors({
+    origin: [
+      "http://localhost:5173",
+      "https://aiassistant-test-frontend.vercel.app",
+    ],
+    methods: ["POST", "OPTIONS"],
+    allowedHeaders: ["Content-Type"],
+  }),
+);
 
 aiRouter.post("/stream", async (req, res) => {
   const { input } = req.body;
@@ -21,9 +35,7 @@ aiRouter.post("/stream", async (req, res) => {
       res.write(`data: ${JSON.stringify(event)}\n\n`);
     }
   } catch (err) {
-    res.write(
-      `event: error\ndata: ${JSON.stringify({ message: "stream failed" })}\n\n`,
-    );
+    res.write(`event: error\ndata: {}\n\n`);
   } finally {
     res.end();
   }
