@@ -5,17 +5,17 @@ import { openai } from "../openai/client";
 export const aiRouter = Router();
 
 // 🔥 ЯВНО обробляємо preflight для цього endpoint
-// aiRouter.options(
-//   "/stream",
-//   cors({
-//     origin: [
-//       "http://localhost:5173",
-//       "https://aiassistant-test-frontend.vercel.app",
-//     ],
-//     methods: ["POST", "OPTIONS"],
-//     allowedHeaders: ["Content-Type"],
-//   }),
-// );
+aiRouter.options(
+  "/stream",
+  cors({
+    origin: [
+      "http://localhost:5173",
+      "https://aiassistant-test-frontend.vercel.app",
+    ],
+    methods: ["POST", "OPTIONS"],
+    allowedHeaders: ["Content-Type"],
+  }),
+);
 
 aiRouter.post("/stream", async (req, res) => {
   const body = typeof req.body === "string" ? JSON.parse(req.body) : req.body;
