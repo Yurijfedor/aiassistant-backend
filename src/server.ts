@@ -9,9 +9,9 @@ const app = express();
 
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://aiassistant-test-frontend.vercel.app",
-  "https://aiassistant-test-frontend-j1keqwvey-yuriy-shaklaks-projects.vercel.app",
-  "https://aiassistant-test-frontend-git-main-yuriy-shaklaks-projects.vercel.app", // твій live Vercel frontend
+  "aiassistant-frontend-eight.vercel.app",
+  "aiassistant-frontend-git-main-yuriy-shaklaks-projects.vercel.app",
+  "aiassistant-frontend-6mhdfzqcv-yuriy-shaklaks-projects.vercel.app", // твій live Vercel frontend
 ];
 
 app.use(
