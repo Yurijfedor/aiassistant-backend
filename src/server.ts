@@ -14,24 +14,17 @@ const allowedOrigins = [
   "aiassistant-frontend-6mhdfzqcv-yuriy-shaklaks-projects.vercel.app", // твій live Vercel frontend
 ];
 
-app.options("*", cors());
-
 app.use(
   cors({
-    origin: (origin, callback) => {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error(`CORS blocked for origin: ${origin}`));
-      }
-    },
+    origin: true,
     methods: ["POST", "OPTIONS"],
     allowedHeaders: ["Content-Type"],
   }),
 );
 
-app.use(express.json());
+app.options("/*", cors());
 
+app.use(express.json());
 app.use("/ai", aiRouter);
 
 const port = process.env.PORT || 3001;
