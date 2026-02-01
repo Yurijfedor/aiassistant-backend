@@ -9,17 +9,15 @@ aiRouter.post("/stream", async (req, res) => {
   res.setHeader("Content-Type", "text/event-stream");
   res.setHeader("Cache-Control", "no-cache");
   res.setHeader("Connection", "keep-alive");
+  res.setHeader("Access-Control-Allow-Origin", req.headers.origin || "*");
 
   const stream = await openai.responses.stream({
     model: "gpt-4.1-mini",
     input,
   });
-  console.log(stream);
 
   try {
     for await (const event of stream) {
-      console.log(JSON.stringify(event));
-
       res.write(`data: ${JSON.stringify(event)}\n\n`);
     }
   } catch {

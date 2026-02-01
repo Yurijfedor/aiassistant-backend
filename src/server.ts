@@ -14,6 +14,8 @@ const allowedOrigins = [
   "aiassistant-frontend-6mhdfzqcv-yuriy-shaklaks-projects.vercel.app", // твій live Vercel frontend
 ];
 
+app.options("*", cors());
+
 app.use(
   cors({
     origin: (origin, callback) => {
